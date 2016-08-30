@@ -1,10 +1,9 @@
-#include "websocketclientqt.h"
-#include <QtWidgets/QApplication>
+
+#include <QtCore/QCoreApplication>
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	WebSocketClientQt w;
-	w.show();
+	QCoreApplication a(argc, argv);
+
 	return a.exec();
 }
