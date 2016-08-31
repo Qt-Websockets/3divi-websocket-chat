@@ -1,10 +1,11 @@
+#include <QtCore/QCoreApplication>
 #include "websocketserverqt.h"
-#include <QtWidgets/QApplication>
+
+//#include "vld.h"
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	WebSocketServerQt w;
-	w.show();
+	QCoreApplication a(argc, argv);
+	WebSocketServerQt server(1234);
 	return a.exec();
 }

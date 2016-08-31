@@ -1,19 +1,28 @@
 #ifndef WEBSOCKETSERVERQT_H
 #define WEBSOCKETSERVERQT_H
 
-#include <QtWidgets/QMainWindow>
-#include "ui_websocketserverqt.h"
+#include <QtCore/QObject>
+#include <QtCore/QList>
+#include <QtCore/QByteArray>
 
-class WebSocketServerQt : public QMainWindow
+QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
+QT_FORWARD_DECLARE_CLASS(QWebSocket)
+
+class WebSocketServerQt : public QObject
 {
 	Q_OBJECT
-
 public:
-	WebSocketServerQt(QWidget *parent = 0);
-	~WebSocketServerQt();
+	explicit WebSocketServerQt(quint16 port, QObject *parent = Q_NULLPTR);
+	virtual ~WebSocketServerQt();
+
+	private Q_SLOTS:
+	void onNewConnection();
+	void processMessage(QString message);
+	void socketDisconnected();
 
 private:
-	Ui::WebSocketServerQtClass ui;
+	QWebSocketServer *m_pWebSocketServer;
+	QList<QWebSocket *> m_clients;
 };
 
 #endif // WEBSOCKETSERVERQT_H
