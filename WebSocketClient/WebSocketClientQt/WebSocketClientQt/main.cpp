@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 	
 	WebSocketClientQt client(QUrl(QStringLiteral("ws://localhost:8081")));
 	client.show();
-	QObject::connect(&client, &WebSocketClientQt::closed, &a, &QApplication::quit);
+	// QObject::connect(&client, &WebSocketClientQt::closed, &a, &QApplication::quit);
 	
 	return a.exec();
 }
