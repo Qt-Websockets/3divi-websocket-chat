@@ -5,9 +5,10 @@
 #include <QtWebSockets/QWebSocket>
 #include <QHBoxLayout>
 #include <QStackedWidget>
-#include <QGroupBox>
 #include <QPushButton>
 #include <QLabel>
+#include <QTextEdit>
+#include <QLineEdit>
 
 #include "ui_websocketclientqt.h"
 
@@ -16,7 +17,7 @@ class WebSocketClientQt : public QMainWindow
 	Q_OBJECT
 public:
 	void changeView(int state);
-	explicit WebSocketClientQt(const QUrl &url);
+	explicit WebSocketClientQt(const QUrl &url, QWidget *parent = 0);
 	~WebSocketClientQt();
 
 private:
@@ -26,7 +27,9 @@ private:
 Q_SIGNALS:
 	void closed();
 
-	private Q_SLOTS:
+private Q_SLOTS:
+	void onChangeView();
+	void onDisconnect();
 	void onConnectButtonClick();
 	void onChatDisconnectButtonClick();
 	void onChatSendButtonClick(QString message);
@@ -37,6 +40,8 @@ private:
 	Ui::WebSocketClientQtClass ui;
 	QStackedWidget *stackedWidget;
 	int autoriationWidget, chatWidget;
+	QTextEdit *chatArea;
+	QLineEdit *messageArea;
 
 	QString username;
 	QWebSocket webSocket;
