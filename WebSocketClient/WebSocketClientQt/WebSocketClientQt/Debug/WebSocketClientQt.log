@@ -1,3 +1,0 @@
-﻿  Rcc'ing websocketclientqt.qrc...
-  C:\Qt\Qt5.7\5.7\msvc2015\bin\rcc.exe: File does not exist 'A:\Documents\09_VCS\091_Git\3DiViWebSocketChat\WebSocketClient\WebSocketClientQt\WebSocketClientQt\websocketclientqt.qrc'
-C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppCommon.targets(171,5): error MSB6006: "cmd.exe" завершилась с кодом 1.
