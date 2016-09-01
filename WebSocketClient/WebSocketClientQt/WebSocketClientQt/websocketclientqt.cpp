@@ -86,6 +86,15 @@ void WebSocketClientQt::onTextMessageReceived(QString message) {
 					msg += value.toString();
 					msg += "\n";
 				}
+
+				if (obj.contains("online")) {
+					QJsonArray usrs = obj.value("online").toArray();
+					usersArea->setText("");
+					for (int i = 0; i < usrs.size(); ++i) {
+						usersArea->append(usrs.at(i).toString());
+					}
+				}
+
 		} else {
 			qDebug() << "Document is not an object";
 		}
@@ -139,9 +148,12 @@ QWidget* WebSocketClientQt::createChatPage() {
 	disconnectButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	connect(disconnectButton, &QPushButton::clicked, this, &WebSocketClientQt::onDisconnect);
 
+	usersArea = new QTextEdit;
+
 	navLayout->addWidget(messageArea);
 	navLayout->addWidget(sendButton);
 	navLayout->addWidget(disconnectButton);
+	navLayout->addWidget(usersArea);
 	
 	QWidget *nav = new QWidget;
 	nav->setLayout(navLayout);

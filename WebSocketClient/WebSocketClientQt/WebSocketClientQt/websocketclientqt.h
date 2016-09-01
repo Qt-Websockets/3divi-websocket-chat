@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QJsonArray>
 
 #include "ui_websocketclientqt.h"
 
@@ -41,7 +42,7 @@ private:
 	Ui::WebSocketClientQtClass ui;
 	QStackedWidget *stackedWidget;
 	int autoriationWidget, chatWidget;
-	QTextEdit *chatArea;
+	QTextEdit *chatArea, *usersArea;
 	QLineEdit *messageArea;
 
 	QString username;
