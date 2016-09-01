@@ -1,0 +1,4 @@
+<RCC>
+    <qresource prefix="WebSocketClientQt">
+    </qresource>
+</RCC>
