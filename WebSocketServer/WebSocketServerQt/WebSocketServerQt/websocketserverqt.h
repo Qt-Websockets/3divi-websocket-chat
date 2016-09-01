@@ -25,6 +25,7 @@ public:
 private:
 	QWebSocketServer *pWebSocketServer;
 	QList<QWebSocket *> clients;
+	QList<QString> usernames;
 };
 
 #endif // WEBSOCKETSERVERQT_H

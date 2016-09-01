@@ -69,6 +69,28 @@ void WebSocketServerQt::processMessage(QString message) {
 			QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
 
 			pClient->sendTextMessage(doc.toJson().toStdString().data());
+
+			if (message == "connected") {
+				usernames.push_back(username);
+				json = "{\"online\": ["; 
+				for each (QString name in usernames) {
+					json += "\"" + name + "\",";
+				}
+				json += "]}";
+				QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
+				pClient->sendTextMessage(doc.toJson().toStdString().data());
+			}
+			if (message == "disconnected") {
+				usernames.removeAt(usernames.indexOf(username));
+				json = "{\"online\": [";
+				for each (QString name in usernames) {
+					json += "\"" + name + "\",";
+				}
+				json += "]}";
+				QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
+				pClient->sendTextMessage(doc.toJson().toStdString().data());
+			}
+
 		}
 		// }
 	}
