@@ -150,7 +150,6 @@ QWidget* WebSocketClientQt::createChatPage() {
 
 	usersArea = new QTextEdit;
 
-	navLayout->addWidget(messageArea);
 	navLayout->addWidget(sendButton);
 	navLayout->addWidget(disconnectButton);
 	navLayout->addWidget(usersArea);
@@ -159,6 +158,7 @@ QWidget* WebSocketClientQt::createChatPage() {
 	nav->setLayout(navLayout);
 
 	layout->addWidget(chatArea);
+	layout->addWidget(messageArea);
 	layout->addWidget(nav);
 	w->setLayout(layout);
 	
