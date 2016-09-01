@@ -28,17 +28,15 @@ void WebSocketClientQt::onChatSendButtonClick() {
 	QString json = "{\"username\": \"" + username + "\", \"message\": \"" + msg + "\"}";
 	QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
 	webSocket.sendTextMessage(doc.toJson().toStdString().data());
-
-	webSocket.sendTextMessage(msg);
 }
 
 void WebSocketClientQt::onConnectButtonClick() {
 	qDebug() << "WebSocket server:" << url;
 	chatArea->append("Chat started");
 
-	connect(&webSocket, &QWebSocket::connected, this, &WebSocketClientQt::onConnected);
-	connect(&webSocket, &QWebSocket::disconnected, this, &WebSocketClientQt::closed, Qt::DirectConnection);
-	connect(&webSocket, &QWebSocket::disconnected, this, &WebSocketClientQt::onDisconnect, Qt::DirectConnection);
+	connect(&webSocket, &QWebSocket::connected, this, &WebSocketClientQt::onConnected, Qt::UniqueConnection);
+	connect(&webSocket, &QWebSocket::disconnected, this, &WebSocketClientQt::closed, Qt::QueuedConnection);
+	connect(&webSocket, &QWebSocket::disconnected, this, &WebSocketClientQt::onDisconnect, Qt::UniqueConnection);
 	webSocket.open(QUrl(url));
 
 	changeView(chatWidget);
@@ -112,7 +110,7 @@ QWidget* WebSocketClientQt::createAuthPage() {
 
 	QPushButton *button = new QPushButton(tr("Connect"));
 	button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	connect(button, &QPushButton::released, this, &WebSocketClientQt::onConnectButtonClick);
+	connect(button, &QPushButton::clicked, this, &WebSocketClientQt::onConnectButtonClick);
 
 	layout->addWidget(txt);
 	layout->addWidget(button);
@@ -135,11 +133,11 @@ QWidget* WebSocketClientQt::createChatPage() {
 
 	QPushButton *sendButton = new QPushButton(tr("Send"));
 	sendButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	connect(sendButton, &QPushButton::released, this, &WebSocketClientQt::onChatSendButtonClick);
+	connect(sendButton, &QPushButton::clicked, this, &WebSocketClientQt::onChatSendButtonClick);
 
 	QPushButton *disconnectButton = new QPushButton(tr("Disconnect"));
 	disconnectButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	connect(disconnectButton, &QPushButton::released, this, &WebSocketClientQt::onDisconnect);
+	connect(disconnectButton, &QPushButton::clicked, this, &WebSocketClientQt::onDisconnect);
 
 	navLayout->addWidget(messageArea);
 	navLayout->addWidget(sendButton);
