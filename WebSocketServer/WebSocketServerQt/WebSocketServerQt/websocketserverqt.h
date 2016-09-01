@@ -4,6 +4,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QList>
 #include <QtCore/QByteArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
 QT_FORWARD_DECLARE_CLASS(QWebSocket)
@@ -21,8 +23,8 @@ public:
 	void socketDisconnected();
 
 private:
-	QWebSocketServer *m_pWebSocketServer;
-	QList<QWebSocket *> m_clients;
+	QWebSocketServer *pWebSocketServer;
+	QList<QWebSocket *> clients;
 };
 
 #endif // WEBSOCKETSERVERQT_H
