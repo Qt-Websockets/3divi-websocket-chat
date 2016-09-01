@@ -27,7 +27,7 @@ void WebSocketClientQt::onChatSendButtonClick() {
 
 	QString json = "{\"username\": \"" + username + "\", \"message\": \"" + msg + "\"}";
 	QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
-	webSocket.sendTextMessage(doc.toJson().toStdString().data());
+	webSocket.sendTextMessage(doc.toJson().data());
 }
 
 void WebSocketClientQt::onConnectButtonClick() {
@@ -50,7 +50,7 @@ void WebSocketClientQt::onConnected() {
 
 	QString json = "{\"username\": \"" + username + "\", \"message\": \"connected\"}";
 	QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
-	webSocket.sendTextMessage(doc.toJson().toStdString().data());
+	webSocket.sendTextMessage(doc.toJson().data());
 }
 
 void WebSocketClientQt::onDisconnect() {
@@ -59,7 +59,7 @@ void WebSocketClientQt::onDisconnect() {
 
 	QString json = "{\"username\": \"" + username + "\", \"message\": \"disconnected\"}";
 	QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
-	webSocket.sendTextMessage(doc.toJson().toStdString().data());
+	webSocket.sendTextMessage(doc.toJson().data());
 	
 	changeView(autoriationWidget);
 
