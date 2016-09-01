@@ -68,30 +68,33 @@ void WebSocketServerQt::processMessage(QString message) {
 			QString json = "{\"username\": \"" + username + "\", \"message\": \"" + message + "\"}";
 			QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
 
-			pClient->sendTextMessage(doc.toJson().toStdString().data());
+			pClient->sendTextMessage(doc.toJson().data());
 
 			if (message == "connected") {
 				usernames.push_back(username);
 				json = "{\"online\": ["; 
-				for each (QString name in usernames) {
-					json += "\"" + name + "\",";
+				for (int i = 0; i < usernames.length(); ++i) {
+					json += "\"" + usernames.at(i) + "\"";
+					if (i != usernames.length() - 1) {
+						json += ",";
+					}
 				}
 				json += "]}";
 				QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
-				pClient->sendTextMessage(doc.toJson().toStdString().data());
+				pClient->sendTextMessage(doc.toJson().data());
 			}
 			if (message == "disconnected") {
 				usernames.removeAt(usernames.indexOf(username));
 				json = "{\"online\": [";
-				for (int i = 0; i < usernames.length; ++i) {
+				for (int i = 0; i < usernames.length(); ++i) {
 					json += "\"" + usernames.at(i) + "\"";
-					if (i != usernames.length - 1) {
+					if (i != usernames.length() - 1) {
 						json += ", ";
 					}
 				}
 				json += "]}";
 				QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
-				pClient->sendTextMessage(doc.toJson().toStdString().data());
+				pClient->sendTextMessage(doc.toJson().data());
 			}
 
 		}
