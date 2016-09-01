@@ -9,6 +9,8 @@
 #include <QLabel>
 #include <QTextEdit>
 #include <QLineEdit>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include "ui_websocketclientqt.h"
 
@@ -28,11 +30,10 @@ Q_SIGNALS:
 	void closed();
 
 private Q_SLOTS:
-	void onChangeView();
 	void onDisconnect();
 	void onConnectButtonClick();
 	void onChatDisconnectButtonClick();
-	void onChatSendButtonClick(QString message);
+	void onChatSendButtonClick();
 	void onConnected();
 	void onTextMessageReceived(QString message);
 
