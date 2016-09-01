@@ -83,8 +83,11 @@ void WebSocketServerQt::processMessage(QString message) {
 			if (message == "disconnected") {
 				usernames.removeAt(usernames.indexOf(username));
 				json = "{\"online\": [";
-				for each (QString name in usernames) {
-					json += "\"" + name + "\",";
+				for (int i = 0; i < usernames.length; ++i) {
+					json += "\"" + usernames.at(i) + "\"";
+					if (i != usernames.length - 1) {
+						json += ", ";
+					}
 				}
 				json += "]}";
 				QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
