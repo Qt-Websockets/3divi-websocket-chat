@@ -28,11 +28,14 @@ void WebSocketClientQt::onChatSendButtonClick() {
 	QString json = "{\"username\": \"" + username + "\", \"message\": \"" + msg + "\"}";
 	QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
 	webSocket.sendTextMessage(doc.toJson().data());
+
+	qDebug() << doc.toJson().data();
 }
 
 void WebSocketClientQt::onConnectButtonClick() {
 	qDebug() << "WebSocket server:" << url;
 	chatArea->append("Chat started");
+	username = usernameArea->text();
 
 	connect(&webSocket, &QWebSocket::connected, this, &WebSocketClientQt::onConnected, Qt::UniqueConnection);
 	connect(&webSocket, &QWebSocket::disconnected, this, &WebSocketClientQt::closed, Qt::QueuedConnection);
@@ -50,7 +53,7 @@ void WebSocketClientQt::onConnected() {
 
 	QString json = "{\"username\": \"" + username + "\", \"message\": \"connected\"}";
 	QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
-	webSocket.sendTextMessage(doc.toJson().data());
+	webSocket.sendTextMessage(json);
 }
 
 void WebSocketClientQt::onDisconnect() {
@@ -113,15 +116,15 @@ QWidget* WebSocketClientQt::createAuthPage() {
 	QWidget *w = new QWidget;
 
 	QVBoxLayout *layout = new QVBoxLayout(w);
-	QLineEdit *txt = new QLineEdit();
-	txt->setText(tr("Enter username"));
-	txt->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter | Qt::AlignCenter);
+	usernameArea = new QLineEdit();
+	usernameArea->setText(tr("Enter username"));
+	usernameArea->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter | Qt::AlignCenter);
 
 	QPushButton *button = new QPushButton(tr("Connect"));
 	button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	connect(button, &QPushButton::clicked, this, &WebSocketClientQt::onConnectButtonClick);
 
-	layout->addWidget(txt);
+	layout->addWidget(usernameArea);
 	layout->addWidget(button);
 	w->setLayout(layout);
 

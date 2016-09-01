@@ -43,7 +43,7 @@ private:
 	QStackedWidget *stackedWidget;
 	int autoriationWidget, chatWidget;
 	QTextEdit *chatArea, *usersArea;
-	QLineEdit *messageArea;
+	QLineEdit *messageArea, *usernameArea;
 
 	QString username;
 	QWebSocket webSocket;
